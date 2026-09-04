@@ -1,0 +1,339 @@
+@import 'tailwindcss';
+
+/* colors and stuff */
+@theme {
+	/* dark to less dark */
+	--color-void: #05060d;
+	--color-deep: #080a14;
+	--color-surface: #0e1121;
+	--color-raised: #141830;
+	--color-inset: #0a0c1a;
+	--color-edge: #232a4a;
+	--color-edge-soft: #1a1f3a;
+
+	/* main accent */
+	--color-arcane-50: #f2eeff;
+	--color-arcane-200: #cabaff;
+	--color-arcane-300: #ab93ff;
+	--color-arcane-400: #8f6bff;
+	--color-arcane-500: #7c4dff;
+	--color-arcane-600: #6832e6;
+	--color-arcane-700: #4d2199;
+	--color-arcane-800: #2f1461;
+	--color-arcane-900: #1c0d3c;
+
+	/* boss / danger */
+	--color-blood-200: #ffb3bd;
+	--color-blood-300: #f8798c;
+	--color-blood-400: #e0435c;
+	--color-blood-500: #c22740;
+	--color-blood-600: #8f1a2e;
+	--color-blood-800: #45101d;
+	--color-blood-900: #2a0a12;
+
+	/* info */
+	--color-abyss-300: #7ab7ff;
+	--color-abyss-400: #4d94f0;
+	--color-abyss-500: #3272cc;
+	--color-abyss-800: #12294d;
+
+	/* done */
+	--color-moss-300: #6ee7a8;
+	--color-moss-400: #34d17f;
+	--color-moss-500: #1fa863;
+	--color-moss-800: #0d3b26;
+
+	/* gold stuff */
+	--color-gold-300: #f5d67a;
+	--color-gold-400: #e6b23c;
+	--color-gold-500: #bf8a1e;
+
+	/* text colors */
+	--color-parchment: #e9ecff;
+	--color-muted: #9aa3c8;
+	--color-faint: #6a7299;
+	--color-ghost: #454c73;
+
+	/* class colors */
+	--color-melee: #e35d5d;
+	--color-ranged: #34c98f;
+	--color-magic: #a77bff;
+	--color-summoner: #2fc4e0;
+
+	--font-pixel: 'Press Start 2P', 'Courier New', ui-monospace, monospace;
+	--font-sans:
+		Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial,
+		sans-serif;
+
+	--radius-pixel: 3px;
+}
+
+/* base */
+@layer base {
+	:root {
+		color-scheme: dark;
+		--af-accent: var(--color-arcane-500);
+		--af-accent-soft: var(--color-arcane-800);
+	}
+
+	html {
+		background-color: var(--color-void);
+		-webkit-text-size-adjust: 100%;
+	}
+
+	body {
+		background-color: var(--color-void);
+		color: var(--color-parchment);
+		font-family: var(--font-sans);
+		font-feature-settings: 'cv02', 'cv03', 'cv04';
+		min-height: 100dvh;
+		overflow-x: hidden;
+	}
+
+	/* focus ring u can actually see */
+	:focus-visible {
+		outline: 2px solid var(--color-arcane-300);
+		outline-offset: 2px;
+		border-radius: 2px;
+	}
+
+	::selection {
+		background: var(--color-arcane-700);
+		color: var(--color-parchment);
+	}
+
+	::-webkit-scrollbar {
+		width: 10px;
+		height: 10px;
+	}
+	::-webkit-scrollbar-track {
+		background: var(--color-deep);
+	}
+	::-webkit-scrollbar-thumb {
+		background: var(--color-edge);
+		border: 2px solid var(--color-deep);
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: var(--color-arcane-700);
+	}
+
+	* {
+		scrollbar-color: var(--color-edge) var(--color-deep);
+	}
+}
+
+/* utils */
+@utility font-pixel {
+	font-family: var(--font-pixel);
+	letter-spacing: 0.02em;
+	line-height: 1.6;
+}
+
+/* small caps label, used everywhere */
+@utility label-xs {
+	font-family: var(--font-pixel);
+	font-size: 9px;
+	line-height: 1.6;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+@utility label-sm {
+	font-family: var(--font-pixel);
+	font-size: 11px;
+	line-height: 1.6;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+/* chunky border like game ui */
+@utility pixel-frame {
+	border: 1px solid var(--color-edge);
+	border-radius: var(--radius-pixel);
+	box-shadow:
+		inset 0 1px 0 rgb(255 255 255 / 0.03),
+		inset 0 0 0 1px rgb(0 0 0 / 0.4);
+}
+
+@utility pixel-corners {
+	position: relative;
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+		width: 5px;
+		height: 5px;
+		border-color: var(--af-accent);
+		border-style: solid;
+		opacity: 0.75;
+		pointer-events: none;
+	}
+	&::before {
+		top: -1px;
+		left: -1px;
+		border-width: 2px 0 0 2px;
+	}
+	&::after {
+		bottom: -1px;
+		right: -1px;
+		border-width: 0 2px 2px 0;
+	}
+}
+
+@utility crisp {
+	image-rendering: pixelated;
+	shape-rendering: crispEdges;
+}
+
+/* small texture so panels dont look flat */
+@utility texture-weave {
+	background-image:
+		repeating-linear-gradient(
+			45deg,
+			rgb(255 255 255 / 0.012) 0 1px,
+			transparent 1px 4px
+		),
+		repeating-linear-gradient(-45deg, rgb(255 255 255 / 0.012) 0 1px, transparent 1px 4px);
+}
+
+@utility texture-scan {
+	background-image: repeating-linear-gradient(
+		to bottom,
+		rgb(255 255 255 / 0.018) 0 1px,
+		transparent 1px 3px
+	);
+}
+
+/* dashed separator */
+@utility block-rule {
+	height: 3px;
+	background-image: repeating-linear-gradient(
+		to right,
+		var(--color-edge) 0 4px,
+		transparent 4px 8px
+	);
+}
+
+@utility scroll-none {
+	scrollbar-width: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+/* animations */
+@keyframes af-twinkle {
+	0%,
+	100% {
+		opacity: 0.15;
+	}
+	50% {
+		opacity: 0.7;
+	}
+}
+
+@keyframes af-drift {
+	from {
+		transform: translate3d(0, 0, 0);
+	}
+	to {
+		transform: translate3d(-60px, 26px, 0);
+	}
+}
+
+@keyframes af-pulse-ring {
+	0% {
+		box-shadow: 0 0 0 0 color-mix(in srgb, var(--af-accent) 45%, transparent);
+	}
+	70% {
+		box-shadow: 0 0 0 10px transparent;
+	}
+	100% {
+		box-shadow: 0 0 0 0 transparent;
+	}
+}
+
+@keyframes af-shimmer {
+	from {
+		background-position: -160% 0;
+	}
+	to {
+		background-position: 260% 0;
+	}
+}
+
+@keyframes af-rise {
+	from {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes af-shake {
+	0%,
+	100% {
+		transform: translate3d(0, 0, 0);
+	}
+	20% {
+		transform: translate3d(-3px, 1px, 0);
+	}
+	40% {
+		transform: translate3d(3px, -1px, 0);
+	}
+	60% {
+		transform: translate3d(-2px, -1px, 0);
+	}
+	80% {
+		transform: translate3d(2px, 1px, 0);
+	}
+}
+
+.anim-pulse-ring {
+	animation: af-pulse-ring 2.4s ease-out infinite;
+}
+.anim-rise {
+	animation: af-rise 0.35s ease-out both;
+}
+.anim-shake {
+	animation: af-shake 0.4s ease-in-out 1;
+}
+
+/* if u dont want motion everything stop here */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.001ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+
+/* the little bar that fill up while u hover */
+@keyframes af-dwell {
+	from {
+		transform: scaleX(0);
+	}
+	to {
+		transform: scaleX(1);
+	}
+}
+
+.af-dwell {
+	animation-name: af-dwell;
+	animation-timing-function: linear;
+	animation-fill-mode: both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	/* a instantly full bar would lie about the stick */
+	.af-dwell {
+		display: none;
+	}
+}
