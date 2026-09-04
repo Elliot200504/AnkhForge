@@ -4,9 +4,9 @@
   <h2 style="border-bottom: none; font-size: 1.6rem; font-weight: 600; color: #f0f6fc; margin-bottom: 8px;">
     Hur, var och vad för varje accessoar
   </h2>
-  <p style="margin-bottom: 24px;">
     <img width="1578" height="685" alt="image" src="https://github.com/user-attachments/assets/5e3ef64e-b677-49d8-8d70-43a163593783" />
-
+    
+  <p style="margin-bottom: 24px;">
     <span style="background-color: #21262d; color: #db6d28; border: 1px solid #363b42; padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; font-weight: 500;">
       287 accessoarer · 104 mobs · Terraria 1.4.5
     </span>
